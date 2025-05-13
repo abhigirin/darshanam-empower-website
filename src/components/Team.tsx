@@ -28,7 +28,7 @@ export default function Team() {
             <div className="relative">
               <div className="rounded-xl overflow-hidden shadow-xl border-4 border-white">
                 <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" 
+                  src="https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149708/WhatsApp_Image_2025-05-13_at_14.50.50_putuyi.jpg" 
                   alt="M.P. Sailaja" 
                   className="w-full h-auto"
                 />

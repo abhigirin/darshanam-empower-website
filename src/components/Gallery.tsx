@@ -10,27 +10,27 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149561/photo_2025-05-13_20-48-59_lonnlr.jpg",
     alt: "Students learning in a classroom setting"
   },
   {
-    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149561/photo_2025-05-13_20-48-57_2_rlcswb.jpg",
     alt: "Group counseling session"
   },
   {
-    src: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149561/photo_2025-05-13_20-48-57_rffdhh.jpg",
     alt: "Career counseling with a student"
   },
   {
-    src: "https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149561/photo_2025-05-13_20-48-59_2_mwkl9r.jpg",
     alt: "Speech and communication training"
   },
   {
-    src: "https://images.unsplash.com/photo-1542744094-3a31f272c490?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149561/photo_2025-05-13_20-48-57_2_rlcswb.jpg",
     alt: "Personality development workshop"
   },
   {
-    src: "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1747149560/photo_2025-05-13_20-48-57_5_bj1epz.jpg",
     alt: "Students in a group activity"
   }
 ];
