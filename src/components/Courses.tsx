@@ -1,8 +1,12 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import CourseDialog from "@/components/CourseDialog";
 
 export default function Courses() {
+  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
+  
   const courses = [
     {
       title: "Advance Diploma in Counseling Psychology",
@@ -78,10 +82,15 @@ export default function Courses() {
           <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
             Our courses are designed to equip you with the skills and knowledge needed to excel in the field of counseling and psychology.
           </p>
-          <Button className="bg-accent1-500 hover:bg-accent1-600 text-white">
+          <Button 
+            className="bg-accent1-500 hover:bg-accent1-600 text-white"
+            onClick={() => setCourseDialogOpen(true)}
+          >
             View All Courses
           </Button>
         </div>
+        
+        <CourseDialog open={courseDialogOpen} onOpenChange={setCourseDialogOpen} />
       </div>
     </section>
   );
