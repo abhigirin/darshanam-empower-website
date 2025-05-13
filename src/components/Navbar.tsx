@@ -29,6 +29,10 @@ export default function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleEnrollClick = () => {
+    window.open("https://api.whatsapp.com/send/?phone=916282505782&text=Hello", "_blank");
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -65,7 +69,10 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <Button className="bg-brand-600 hover:bg-brand-700 text-white">
+          <Button 
+            className="bg-brand-600 hover:bg-brand-700 text-white"
+            onClick={handleEnrollClick}
+          >
             Enroll Now
           </Button>
         </div>
@@ -85,15 +92,12 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="p-4">
-                <a
-                  href="https://api.whatsapp.com/send/?phone=916282505782&text=Hello"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Button 
+                  className="w-full bg-brand-600 hover:bg-brand-700 text-white"
+                  onClick={handleEnrollClick}
                 >
-                  <Button className="w-full bg-brand-600 hover:bg-brand-700 text-white">
-                    Enroll Now
-                  </Button>
-                </a>
+                  Enroll Now
+                </Button>
               </div>
             </nav>
           </div>
