@@ -49,7 +49,7 @@ export default function Footer() {
               <strong>Phone:</strong> +91 94475 32077, +91 62825 05782
             </p>
             <p className="text-gray-300">
-              <strong>Email:</strong> info@darshanam.edu
+              <strong>Email:</strong> info@darshanam.pro
             </p>
           </div>
         </div>

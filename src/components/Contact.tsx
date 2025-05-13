@@ -55,7 +55,7 @@ export default function Contact() {
                 <div>
                   <h4 className="font-semibold text-gray-800">Email</h4>
                   <p className="text-gray-600">
-                    <a href="mailto:info@darshanam.edu" className="hover:text-brand-600">info@darshanam.edu</a>
+                    <a href="mailto:info@darshanam.pro" className="hover:text-brand-600">info@darshanam.pro</a>
                   </p>
                 </div>
               </div>
