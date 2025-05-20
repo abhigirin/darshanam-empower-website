@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import CourseDialog from "@/components/CourseDialog";
+import EnrollmentDialog from "@/components/EnrollmentDialog";
 
 export default function Hero() {
   const [courseDialogOpen, setCourseDialogOpen] = useState(false);
+  const [enrollmentDialogOpen, setEnrollmentDialogOpen] = useState(false);
   
-  const handleEnrollClick = () => {
+  const handleContactClick = () => {
     window.open("https://api.whatsapp.com/send/?phone=916282505782&text=Hello", "_blank");
   };
 
@@ -32,9 +34,9 @@ export default function Hero() {
               <Button 
                 variant="outline" 
                 className="border-brand-600 text-brand-600 hover:bg-brand-50 px-8 py-6 text-lg"
-                onClick={handleEnrollClick}
+                onClick={() => setEnrollmentDialogOpen(true)}
               >
-                Contact Us
+                Apply Now
               </Button>
             </div>
           </div>
@@ -59,6 +61,7 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
       
       <CourseDialog open={courseDialogOpen} onOpenChange={setCourseDialogOpen} />
+      <EnrollmentDialog open={enrollmentDialogOpen} onOpenChange={setEnrollmentDialogOpen} />
     </section>
   );
 }
