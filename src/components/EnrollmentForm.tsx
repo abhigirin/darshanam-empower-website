@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,7 +19,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, User, FileText, MapPin, Phone, GraduationCap, Users } from "lucide-react";
+import { Calendar as CalendarIcon, User, FileText, MapPin, Phone, GraduationCap, Users, ChevronDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   courseName: z.string().min(1, { message: "Course name is required" }),
@@ -44,6 +50,33 @@ type FormValues = z.infer<typeof formSchema>;
 export default function EnrollmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  // Course lists from CourseDialog
+  const ugcCourses = [
+    "Certified Skill Diploma in Counseling Psychology (6 months)",
+    "Certified Skill Diploma in Pre Primary Teachers Training (6 months)",
+    "Certification in Mind Tuning Practioner and Counselor (3 months)",
+    "Certification in Train the Trainer (3 months)",
+  ];
+
+  const bssCourses = [
+    "Advance Diploma in Counseling Psychology (1 year)",
+    "Advance Diploma in Guidance and Counseling (1 year)",
+    "Advance Diploma in Learning Disability (1 year)",
+    "Advance Diploma in Counseling Psychology",
+  ];
+
+  // Get all courses for the dropdown
+  const [availableCourses, setAvailableCourses] = useState<string[]>([]);
+  
+  // Update available courses when course type changes
+  const updateAvailableCourses = (type: string) => {
+    if (type === "ugc") {
+      setAvailableCourses(ugcCourses);
+    } else {
+      setAvailableCourses(bssCourses);
+    }
+  };
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,6 +92,17 @@ export default function EnrollmentForm() {
       declaration: false,
     },
   });
+
+  // Initialize available courses on component mount
+  useState(() => {
+    updateAvailableCourses(form.getValues("courseType"));
+  });
+
+  // Watch for course type changes to update available courses
+  const courseType = form.watch("courseType");
+  useState(() => {
+    updateAvailableCourses(courseType);
+  }, [courseType]);
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
@@ -116,7 +160,10 @@ export default function EnrollmentForm() {
                   <FormLabel className="text-base font-medium">Course Type</FormLabel>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        updateAvailableCourses(value);
+                      }}
                       defaultValue={field.value}
                       className="flex flex-col sm:flex-row gap-4"
                     >
@@ -145,12 +192,26 @@ export default function EnrollmentForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name of the Course</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <FileText className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
-                      <Input className="pl-10" placeholder="Enter course name" {...field} />
-                    </div>
-                  </FormControl>
+                  <Select 
+                    onValueChange={field.onChange} 
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <div className="flex items-center">
+                          <FileText className="mr-2 h-4 w-4 text-gray-500" />
+                          <SelectValue placeholder="Select a course" />
+                        </div>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {availableCourses.map((course, index) => (
+                        <SelectItem key={index} value={course}>
+                          {course}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
