@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -94,13 +95,13 @@ export default function EnrollmentForm() {
   });
 
   // Initialize available courses on component mount
-  useState(() => {
+  useEffect(() => {
     updateAvailableCourses(form.getValues("courseType"));
-  });
+  }, []);
 
   // Watch for course type changes to update available courses
   const courseType = form.watch("courseType");
-  useState(() => {
+  useEffect(() => {
     updateAvailableCourses(courseType);
   }, [courseType]);
 
