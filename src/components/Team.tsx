@@ -9,11 +9,12 @@ export default function Team() {
   ];
 
   const expertise = [
+    "Counseling Psychologist",
     "Motivation Speaker",
     "Mind Power Trainer",
     "Happiness Coach",
     "Parenting Trainer",
-    "Psycho Counselor"
+    "Adolescent Trainer",
   ];
 
   return (
@@ -47,10 +48,11 @@ export default function Team() {
               <div>
                 <h4 className="text-lg font-semibold text-gray-800 mb-3">Professional Profile</h4>
                 <ul className="space-y-2 text-gray-700">
+                  <li>• Counseling Psychologist</li>
                   <li>• Master Trainer</li>
-                  <li>• Psycho Counselor</li>
                   <li>• International Career Counselor</li>
                   <li>• Yoga Instructor</li>
+                     <li>• Nutrition Advisor</li>
                   <li>• Retired Higher Secondary Principal</li>
                 </ul>
               </div>

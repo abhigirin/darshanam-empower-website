@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { sendEnrollmentToTelegram } from "../services/telegramService";
 const formSchema = z.object({
   courseName: z.string().min(1, { message: "Course name is required" }),
   studentName: z.string().min(1, { message: "Student name is required" }),
@@ -109,37 +108,45 @@ export default function EnrollmentForm() {
     setIsSubmitting(true);
     
     try {
-      // Format the data for Google Sheets
+      // Format the data for submission
       const formattedData = {
         ...data,
         dob: format(data.dob, "yyyy-MM-dd"),
         declaration: data.declaration ? "Yes" : "No",
         timestamp: new Date().toISOString(),
+        // Ensure all fields are non-optional to match EnrollmentData type
+        courseName: data.courseName,
+        studentName: data.studentName,
+        address: data.address,
+        mobile: data.mobile,
+        email: data.email,
+        age: data.age,
+        education: data.education,
+        guardian: data.guardian,
+        courseType: data.courseType,
       };
       
       console.log("Form data to submit:", formattedData);
-      
-      // Here you would normally make a fetch request to your Google Sheets API endpoint
-      // For demonstration, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await sendEnrollmentToTelegram(formattedData);
+      // Send data to our API endpoint
       
       toast({
-        title: "Application Submitted",
-        description: "Thank you for your enrollment application. We will contact you soon.",
-      });
-      
-      form.reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        variant: "destructive",
-        title: "Submission Failed",
-        description: "There was a problem submitting your application. Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+      title: "Application Submitted",
+      description: "Thank you for your enrollment application. We will contact you soon.",
+    });
+    
+    form.reset();
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast({
+      variant: "destructive",
+      title: "Submission Failed",
+      description: error instanceof Error ? error.message : "There was a problem submitting your application.",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className="max-w-4xl mx-auto">
