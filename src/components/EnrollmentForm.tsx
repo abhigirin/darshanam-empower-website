@@ -13,8 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
@@ -35,7 +34,7 @@ const formSchema = z.object({
   mobile: z.string().min(10, { message: "Mobile number is required" })
     .regex(/^[0-9]{10}$/, { message: "Please enter a valid 10-digit mobile number" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
-  dob: z.date({ required_error: "Date of birth is required" }),
+  dob: z.string({ required_error: "Date of birth is required" }),
   age: z.string().min(1, { message: "Age is required" }),
   education: z.string().min(1, { message: "Educational qualification is required" }),
   guardian: z.string().min(1, { message: "Guardian name is required" }),
@@ -85,6 +84,7 @@ export default function EnrollmentForm() {
       address: "",
       mobile: "",
       email: "",
+      dob:"",
       age: "",
       education: "",
       guardian: "",
@@ -304,62 +304,42 @@ export default function EnrollmentForm() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="dob"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date of Birth</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={`w-full pl-3 text-left font-normal ${
-                              !field.value ? "text-muted-foreground" : ""
-                            }`}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <FormField
+    control={form.control}
+    name="dob"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Date of Birth</FormLabel>
+        <FormControl>
+          <div className="relative">
+            <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+            <Input 
+              className="pl-10"
+              placeholder="DD-MM-YYYY" 
+              {...field} 
+            />
+          </div>
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
 
-              <FormField
-                control={form.control}
-                name="age"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Age</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="Your current age" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+  <FormField
+    control={form.control}
+    name="age"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Age</FormLabel>
+        <FormControl>
+          <Input type="number" placeholder="Your current age" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+</div>
 
             <FormField
               control={form.control}
