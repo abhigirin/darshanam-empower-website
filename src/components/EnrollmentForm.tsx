@@ -13,11 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
-import { format } from "date-fns";
+// Remove the format import since we're not using it anymore
+// import { format } from "date-fns";
 import { Calendar as CalendarIcon, User, FileText, MapPin, Phone, GraduationCap, Users, ChevronDown } from "lucide-react";
 import {
   Select,
@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { sendEnrollmentToTelegram } from "../services/telegramService";
+
 const formSchema = z.object({
   courseName: z.string().min(1, { message: "Course name is required" }),
   studentName: z.string().min(1, { message: "Student name is required" }),
@@ -34,7 +35,7 @@ const formSchema = z.object({
   mobile: z.string().min(10, { message: "Mobile number is required" })
     .regex(/^[0-9]{10}$/, { message: "Please enter a valid 10-digit mobile number" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
-  dob: z.string({ required_error: "Date of birth is required" }),
+  dob: z.string().min(1, { message: "Date of birth is required" }),
   age: z.string().min(1, { message: "Age is required" }),
   education: z.string().min(1, { message: "Educational qualification is required" }),
   guardian: z.string().min(1, { message: "Guardian name is required" }),
@@ -84,7 +85,7 @@ export default function EnrollmentForm() {
       address: "",
       mobile: "",
       email: "",
-      dob:"",
+      dob: "",
       age: "",
       education: "",
       guardian: "",
@@ -110,43 +111,40 @@ export default function EnrollmentForm() {
     try {
       // Format the data for submission
       const formattedData = {
-        ...data,
-        dob: format(data.dob, "yyyy-MM-dd"),
-        declaration: data.declaration ? "Yes" : "No",
-        timestamp: new Date().toISOString(),
-        // Ensure all fields are non-optional to match EnrollmentData type
         courseName: data.courseName,
         studentName: data.studentName,
         address: data.address,
         mobile: data.mobile,
         email: data.email,
+        dob: data.dob, // DOB is already a string, no need to format
         age: data.age,
         education: data.education,
         guardian: data.guardian,
         courseType: data.courseType,
+        declaration: data.declaration ? "Yes" : "No",
+        timestamp: new Date().toISOString(),
       };
       
       console.log("Form data to submit:", formattedData);
       await sendEnrollmentToTelegram(formattedData);
-      // Send data to our API endpoint
       
       toast({
-      title: "Application Submitted",
-      description: "Thank you for your enrollment application. We will contact you soon.",
-    });
-    
-    form.reset();
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    toast({
-      variant: "destructive",
-      title: "Submission Failed",
-      description: error instanceof Error ? error.message : "There was a problem submitting your application.",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+        title: "Application Submitted",
+        description: "Thank you for your enrollment application. We will contact you soon.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: error instanceof Error ? error.message : "There was a problem submitting your application.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -304,42 +302,42 @@ export default function EnrollmentForm() {
               />
             </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <FormField
-    control={form.control}
-    name="dob"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Date of Birth</FormLabel>
-        <FormControl>
-          <div className="relative">
-            <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
-            <Input 
-              className="pl-10"
-              placeholder="DD-MM-YYYY" 
-              {...field} 
-            />
-          </div>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="dob"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Date of Birth</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <CalendarIcon className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                        <Input 
+                          className="pl-10"
+                          placeholder="DD-MM-YYYY" 
+                          {...field} 
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-  <FormField
-    control={form.control}
-    name="age"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>Age</FormLabel>
-        <FormControl>
-          <Input type="number" placeholder="Your current age" {...field} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-</div>
+              <FormField
+                control={form.control}
+                name="age"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Age</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="Your current age" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}

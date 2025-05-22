@@ -1,5 +1,4 @@
 // src/services/telegramService.ts
-import { createProxiedUrl } from './corsProxyService';
 interface EnrollmentData {
   courseName: string;
   studentName: string;
@@ -51,24 +50,31 @@ export async function sendEnrollmentToTelegram(data: EnrollmentData): Promise<an
   
   const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
   console.log("Sending message to Telegram:", message);
-    console.log("Using URL:", url);
+  console.log("Using URL:", url);
 
-  const proxiedUrl = createProxiedUrl(url);
-const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: GROUP_ID,
-      message_thread_id: TOPIC_ID,
-      text: message,
-      parse_mode: "Markdown",
-    }),
-  });
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Failed to send to Telegram: ${response.status} ${response.statusText} - ${errorText}`);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: GROUP_ID,
+        message_thread_id: TOPIC_ID,
+        text: message,
+        parse_mode: "Markdown",
+      }),
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Telegram API Error:", errorText);
+      throw new Error(`Failed to send to Telegram: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+    
+    const result = await response.json();
+    console.log("Successfully sent to Telegram:", result);
+    return result;
+  } catch (error) {
+    console.error("Error in sendEnrollmentToTelegram:", error);
+    throw error;
   }
-  
-  return await response.json();
 }
