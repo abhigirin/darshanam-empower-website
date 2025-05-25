@@ -1,14 +1,14 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import EnrollmentDialog from "./EnrollmentDialog";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [enrollmentDialogOpen, setEnrollmentDialogOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,8 +23,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isHomePage = location.pathname === '/';
+
   const navItems = [
-    { name: "Home", href: "#home", isExternal: false },
+    { name: "Home", href: isHomePage ? "#home" : "/", isExternal: !isHomePage },
     { name: "About", href: "#about", isExternal: false },
     { name: "Services", href: "#services", isExternal: false },
     { name: "Courses", href: "#courses", isExternal: false },
