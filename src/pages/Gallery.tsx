@@ -33,34 +33,75 @@ const allGalleryImages = [
     alt: "Students in a group activity",
     category: "Activities"
   },
-  // Add more images here - using placeholder images for demonstration
+
   {
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1171&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197716/photo_2025-05-25_23-25-08_efhufp.jpg",
     alt: "Students in classroom discussion",
     category: "Classroom"
   },
   {
-    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197716/photo_2025-05-25_23-25-08_2_u8nixt.jpg",
     alt: "Individual counseling session",
     category: "Counseling"
   },
   {
-    src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1171&q=80",
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197715/photo_2025-05-25_23-25-06_2_zneksx.jpg",
     alt: "Group learning activity",
     category: "Activities"
   },
-  // Continue adding more images to reach 50+
-  // You can replace these with your actual uploaded images
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197713/photo_2025-05-25_23-25-03_3_o0ivak.jpg",
+    alt: "Career guidance workshop",
+    category: "Career Guidance"
+  },
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197715/photo_2025-05-25_23-25-04_2_m5mn2m.jpg",
+    alt: "Training session in progress",
+    category: "Training"
+  },
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197714/photo_2025-05-25_23-25-06_zuym6p.jpg",
+    alt: "Students participating in a workshop",
+    category: "Activities"
+  },
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197714/photo_2025-05-25_23-25-05_ez7ioi.jpg",
+    alt: "Counseling session with a mentor",
+    category: "Counseling"},
+      //12
+    {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197714/photo_2025-05-25_23-25-04_3_whztkt.jpg",
+    alt: "Students engaged in a group discussion",
+    category: "Classroom"
+  },
+    {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197713/photo_2025-05-25_23-25-03_2_tzkvjz.jpg",
+    alt: "Training session in progress",
+    category: "Training"
+  },
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197713/photo_2025-05-25_23-25-04_eenicj.jpg",
+    alt: "Students participating in a workshop",
+    category: "Activities"
+  },
+  {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197713/photo_2025-05-25_23-25-03_vvmai1.jpg",
+    alt: "Counseling session with a mentor",
+    category: "Counseling"},
+    {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197713/photo_2025-05-25_23-25-02_2_gljgco.jpg",
+    alt: "Students engaged in a group discussion",
+    category: "Classroom"
+  },
+    {
+    src: "https://res.cloudinary.com/dvsqo3kj7/image/upload/v1748197712/photo_2025-05-25_23-25-02_dbnwvr.jpg",
+    alt: "Training session in progress",
+    category: "Training"
+  }
+
 ];
 
-// Generate more placeholder images to reach 50+
-for (let i = 9; i <= 50; i++) {
-  allGalleryImages.push({
-    src: `https://images.unsplash.com/photo-152${i}0000000-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80`,
-    alt: `Gallery image ${i}`,
-    category: i % 4 === 0 ? "Classroom" : i % 3 === 0 ? "Counseling" : i % 2 === 0 ? "Training" : "Activities"
-  });
-}
+
 
 export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState("All");

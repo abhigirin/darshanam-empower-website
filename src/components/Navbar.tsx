@@ -25,15 +25,16 @@ export default function Navbar() {
 
   const isHomePage = location.pathname === '/';
 
-  const navItems = [
-    { name: "Home", href: isHomePage ? "#home" : "/", isExternal: !isHomePage },
-    { name: "About", href: "#about", isExternal: false },
-    { name: "Services", href: "#services", isExternal: false },
-    { name: "Courses", href: "#courses", isExternal: false },
-    { name: "Gallery", href: "/gallery", isExternal: true },
-    { name: "Testimonials", href: "#testimonials", isExternal: false },
-    { name: "Contact", href: "#contact", isExternal: false },
-  ];
+const navItems = [
+  { name: "Home", href: isHomePage ? "#home" : "/", isExternal: !isHomePage },
+  { name: "About", href: isHomePage ? "#about" : "/#about", isExternal: !isHomePage },
+  { name: "Services", href: isHomePage ? "#services" : "/#services", isExternal: !isHomePage },
+  { name: "Courses", href: isHomePage ? "#courses" : "/#courses", isExternal: !isHomePage },
+  { name: "Gallery", href: "/gallery", isExternal: true },
+  { name: "Testimonials", href: isHomePage ? "#testimonials" : "/#testimonials", isExternal: !isHomePage },
+  { name: "Contact", href: isHomePage ? "#contact" : "/#contact", isExternal: !isHomePage },
+];
+
 
   const handleEnrollClick = () => {
     setEnrollmentDialogOpen(true);
