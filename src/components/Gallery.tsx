@@ -7,6 +7,8 @@ import {
   CarouselPrevious 
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const galleryImages = [
   {
@@ -73,7 +75,7 @@ export default function Gallery() {
           </Carousel>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {galleryImages.slice(0, 4).map((image, index) => (
             <div 
               key={index}
@@ -88,6 +90,17 @@ export default function Gallery() {
               </AspectRatio>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Link to="/gallery">
+            <Button className="bg-brand-600 hover:bg-brand-700 text-white px-8 py-3 text-lg">
+              View More Gallery
+            </Button>
+          </Link>
+          <p className="text-gray-600 mt-4">
+            Explore our complete collection of training sessions, workshops, and activities
+          </p>
         </div>
       </div>
     </section>

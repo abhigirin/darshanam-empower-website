@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 import EnrollmentDialog from "./EnrollmentDialog";
 
 export default function Navbar() {
@@ -23,13 +24,13 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Courses", href: "#courses" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", isExternal: false },
+    { name: "About", href: "#about", isExternal: false },
+    { name: "Services", href: "#services", isExternal: false },
+    { name: "Courses", href: "#courses", isExternal: false },
+    { name: "Gallery", href: "/gallery", isExternal: true },
+    { name: "Testimonials", href: "#testimonials", isExternal: false },
+    { name: "Contact", href: "#contact", isExternal: false },
   ];
 
   const handleEnrollClick = () => {
@@ -48,12 +49,12 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <span className="text-xl md:text-2xl font-bold text-brand-700">
               Darshanam <span className="text-accent1-600">Mindful</span> Edu
               Academy
             </span>
-          </a>
+          </Link>
 
           {/* Mobile menu button */}
           <button
@@ -66,13 +67,23 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-brand-600 font-medium transition-colors"
-              >
-                {item.name}
-              </a>
+              item.isExternal ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-gray-700 hover:text-brand-600 font-medium transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-700 hover:text-brand-600 font-medium transition-colors"
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -90,14 +101,25 @@ export default function Navbar() {
             <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t md:hidden">
               <nav className="flex flex-col">
                 {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-brand-600 border-b"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
+                  item.isExternal ? (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-brand-600 border-b"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-brand-600 border-b"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  )
                 ))}
                 <div className="p-4">
                   <Button 
