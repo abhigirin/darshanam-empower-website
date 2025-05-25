@@ -21,7 +21,7 @@ export default function Hero() {
   useEffect(() => {
     const slideshowTimer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slideImages.length);
-    }, 5000);
+    }, 3000);
     
     return () => clearInterval(slideshowTimer);
   }, []);
